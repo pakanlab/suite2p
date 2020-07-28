@@ -22,7 +22,7 @@ class TextChooser(QtGui.QDialog):
         self.win = QtGui.QWidget(self)
         layout = QtGui.QGridLayout()
         self.win.setLayout(layout)
-        self.qedit = QtGui.QLineEdit('data')
+        self.qedit = QtGui.QLineEdit('imaging')
         layout.addWidget(QtGui.QLabel('h5 key for data field'),0,0,1,3)
         layout.addWidget(self.qedit,1,0,1,2)
         done = QtGui.QPushButton('OK')
@@ -37,7 +37,7 @@ class TextChooser(QtGui.QDialog):
 class RunWindow(QtGui.QDialog):
     def __init__(self, parent=None):
         super(RunWindow, self).__init__(parent)
-        self.setGeometry(10,10,1500,900)
+        self.setGeometry(100,100,1100,800)
         self.setWindowTitle('Choose run options (hold mouse over parameters to see descriptions)')
         self.parent = parent
         self.win = QtGui.QWidget(self)
@@ -65,7 +65,7 @@ class RunWindow(QtGui.QDialog):
 
         self.data_path = []
         self.save_path = []
-        self.fast_disk = []
+        self.fast_disk = ['C:/suite2pTemp']
         self.opslist = []
         self.batch = False
         self.f = 0
@@ -215,7 +215,7 @@ class RunWindow(QtGui.QDialog):
         qlabel.setToolTip('File format (selects which parser to use)')
         self.layout.addWidget(qlabel,1,0,1,1)
         self.inputformat = QtGui.QComboBox()
-        [self.inputformat.addItem(f) for f in ['tif','bruker','sbx', 'h5','mesoscan','haus']]
+        [self.inputformat.addItem(f) for f in ['h5','tif','bruker','sbx', 'mesoscan','haus']]
         self.inputformat.currentTextChanged.connect(self.parse_inputformat)
         self.layout.addWidget(self.inputformat,2,0,1,1)
 
@@ -462,7 +462,7 @@ class RunWindow(QtGui.QDialog):
                             self.editlist[self.keylist.index(key)].set_text(ops)
                         self.ops[key] = ops[key]
                 if not 'input_format' in self.ops.keys():
-                    self.ops['input_format'] = 'tif'
+                    self.ops['input_format'] = 'h5'
                 if 'data_path' in ops and len(ops['data_path'])>0:
                     self.data_path = ops['data_path']
                     for n in range(9):
@@ -547,7 +547,7 @@ class RunWindow(QtGui.QDialog):
         if result:
             self.h5_key = TC.h5_key
         else:
-            self.h5_key = 'data'
+            self.h5_key = 'imaging'
 
     def parse_inputformat(self):
         inputformat = self.inputformat.currentText()

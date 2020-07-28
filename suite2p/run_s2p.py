@@ -28,7 +28,7 @@ def default_ops():
         'mesoscan': False, # for reading in scanimage mesoscope files
         'bruker': False, # whether or not single page BRUKER tiffs!
         'h5py': [], # take h5py as input (deactivates data_path)
-        'h5py_key': 'data', #key in h5py where data array is stored
+        'h5py_key': 'imaging', #key in h5py where data array is stored
         'save_path0': [], # stores results, defaults to first item in data_path
         'save_folder': [],
         'subfolders': [],
@@ -149,6 +149,8 @@ def run_s2p(ops={},db={}):
         for i,op in enumerate(ops1):
             # default behavior is to look in the ops
             flag_reg = os.path.isfile(op['reg_file'])
+            if op['delete_bin'] and not op['move_bin']:
+                flag_binreg = False
             if not flag_reg:
                 # otherwise look in the user defined save_path0
                 op['save_path'] = os.path.join(ops['save_path0'], 'suite2p', 'plane%d'%i)
@@ -186,7 +188,7 @@ def run_s2p(ops={},db={}):
         flag_binreg = False
         ops['date_proc'] = datetime.datetime.now()
     if not 'input_format' in ops.keys():
-        ops['input_format'] = 'tif'
+        ops['input_format'] = 'h5'
     if len(ops['h5py']):
         ops['input_format'] = 'h5'
     elif 'mesoscan' in ops and ops['mesoscan']:
