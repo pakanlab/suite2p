@@ -196,7 +196,11 @@ def find_files_open_binaries(ops1, ish5=False):
         input_format = 'h5'
     print(input_format)
     if input_format == 'h5':
-        if len(ops1[0]['data_path'])>0:
+        if len(ops1[0]['filelist'])>0:
+            fs = ops1[0]['filelist']
+            print('NOTE: using a list of h5 files:')
+            print(fs)
+        elif len(ops1[0]['data_path'])>0:
             fs, ops2 = get_h5_list(ops1[0])
             print('NOTE: using a list of h5 files:')
             print(fs)
