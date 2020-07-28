@@ -286,6 +286,11 @@ def save_mat(parent):
                          'redcell': np.concatenate((np.expand_dims(parent.redcell,axis=1),
                          np.expand_dims(parent.probredcell,axis=1)), axis=1)
                          })
+    FOVname = parent.ops['save_path0'].split('FOV_',1)[1]
+    matpath_workdir = os.path.join(parent.ops['workdir_path'],'Fall_' + FOVname + '.mat')
+    import shutil
+    shutil.copyfile(matpath, matpath_workdir)
+    print('files saved')
 
 def save_merge(parent):
     print('saving to NPY')
