@@ -1,8 +1,8 @@
 # suite2p <img src="suite2p/logo/logo_unshaded.png" width="250" title="sweet two pea" alt="sweet two pea" align="right" vspace = "50">
 
 [![Documentation Status](https://readthedocs.org/projects/suite2p/badge/?version=dev)](https://suite2p.readthedocs.io/en/dev/?badge=dev)
-
 [![Build Status](https://travis-ci.org/Mouseland/suite2p.svg?branch=dev)](https://travis-ci.org/Mouseland/suite2p)
+[![Coverage Status](https://coveralls.io/repos/github/MouseLand/suite2p/badge.svg?branch=dev)](https://coveralls.io/github/MouseLand/suite2p?branch=dev)
 
 Pipeline for processing two-photon calcium imaging data.  
 Copyright (C) 2018  Howard Hughes Medical Institute Janelia Research Campus  
@@ -23,7 +23,9 @@ See this **twitter [thread](https://twitter.com/marius10p/status/103280477663388
 
 The matlab version is available [here](https://github.com/cortex-lab/Suite2P). Note that the algorithm is older and will not work as well on non-circular ROIs.
 
-## *NEW* detailed github [page](http://mouseland.github.io/suite2p)
+Lectures on how suite2p works are available [here](https://youtu.be/HpL5XNtC5wU?list=PLutb8FMs2QdNqL4h4NrNhSHgLGk4sXarb).
+
+## Read the Documentation at https://suite2p.readthedocs.io/
 
 ## Installation
 
@@ -32,8 +34,9 @@ Install an [Anaconda](https://www.anaconda.com/download/) distribution of Python
 1. Download the [`environment.yml`](https://github.com/MouseLand/suite2p/blob/master/environment.yml) file from the repository. You can do this by cloning the repository, or copy-pasting the text from the file into a text document on your local computer.
 2. Open an anaconda prompt / command prompt with `conda` for **python 3** in the path
 3. Change directories to where the `environment.yml` is and run `conda env create -f environment.yml`
-4. Pip install suite2p into the environment: `pip install suite2p`
-6. Now run `python -m suite2p` and you're all set.
+4. Activate the environment with `conda activate suite2p'
+5. Pip install suite2p into the environment: `pip install suite2p`
+6. Now run `suite2p` and you're all set.
 
 If you have an older `suite2p` environment you can remove it with `conda env remove -n suite2p` before creating a new one.
 
@@ -57,7 +60,7 @@ The software has been heavily tested on Windows 10 and Ubuntu 18.04, and less we
 2. Run `conda env create -f environment.yml`
 3. To activate this new environment, run `conda activate suite2p` (you will have to activate every time you want to run suite2p)
 4. Install the local version of suite2p into this environment in develop mode, with everything to get test data: `pip install .[data]`
-5. Download the data: ``dvc pull``. Follow the authentication instructions in the output.
+5. Download the data with ``dvc pull -r gdrive-travis`` (read-only access). If you need to have read/write access to the files, run ``dvc pull`` and follow the authentication instructions in the output. **Note**: do *not* commit the json credentials file that comes out afterwards, git should ignore it.
 6. Run tests: `python setup.py test`
 
 
@@ -69,7 +72,7 @@ An example dataset is provided [here](https://drive.google.com/open?id=1PCJy265N
 
 The quickest way to start is to open the GUI from a command line terminal. You might need to open an anaconda prompt if you did not add anaconda to the path. Make sure to run this from a directory in which you have **WRITE** access (suite2p saves a couple temporary files in your current directory):
 ~~~~
-python -m suite2p
+suite2p
 ~~~~
 Then:
 1. File -> Run suite2p (or ctrl+r)
@@ -116,7 +119,7 @@ You can add your manual curation to a pre-built classifier by clicking "Add curr
 
 1. From the command line:
 ~~~~
-python -m suite2p --ops <path to ops.npy> --db <path to db.npy>
+suite2p --ops <path to ops.npy> --db <path to db.npy>
 ~~~~
 
 2. From Python/Jupyter

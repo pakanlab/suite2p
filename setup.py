@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="suite2p",
-    version="0.7.5",
+    version="0.8.0",
     author="Marius Pachitariu and Carsen Stringer",
     author_email="marius10p@gmail.com",
     description="Pipeline for calcium imaging",
@@ -27,17 +27,20 @@ setuptools.setup(
       'natsort',
       'rastermap>0.1.0',
       'tifffile',
-      'scanimage-tiff-reader!=1.4.1',
+      'scanimage-tiff-reader>=1.4.1',
+      'pyqtgraph',
     ],
     tests_require=[
       'pytest',
-      'tqdm',
+      'pynwb',
     ],
     extras_require={
       "docs": [
         'sphinx>=3.0',
         'sphinxcontrib-apidoc',
         'sphinx_rtd_theme',
+        'sphinx-prompt',
+        'sphinx-autodoc-typehints',
       ],
       # Note: Available in pypi, but cleaner to install as pyqt from conda.
       "gui": [
@@ -51,7 +54,7 @@ setuptools.setup(
         "mkl>=2019.3",
       ],
       "data": [
-        "dvc",
+        "dvc>=1.1",
         "pydrive2",
       ],
     },
@@ -63,7 +66,9 @@ setuptools.setup(
     ],
       entry_points = {
         'console_scripts': [
-          'suite2p = suite2p.__main__:parse_arguments',
+          'suite2p = suite2p.__main__:main',
+          'reg_metrics = benchmarks.registration_metrics:main',
+          'tiff2scanimage = scripts.make_tiff_scanimage_compatible:main',
         ]
         },
 )
